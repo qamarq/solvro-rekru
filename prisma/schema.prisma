@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Cocktail {
+  id          Int                    @id @default(autoincrement())
+  name        String
+  category    Category               @relation(fields: [categoryid], references: [id])
+  categoryid  Int
+  instruction String
+  image       String
+  favorite    Boolean
+  tags        Tag[]
+  ingredients IngredientOnCocktail[]
+
+  @@map("cocktails")
+}
+
+model Ingredient {
+  id          Int                    @id @default(autoincrement())
+  name        String
+  description String
+  isAlcohol   Boolean
+  image       String
+  type        String
+  cocktails   IngredientOnCocktail[]
+
+  @@map("ingredients")
+}
+
+model IngredientOnCocktail {
+  cocktailId   Int
+  ingredientId Int
+  quantity     Float
+  measure      String
+
+  cocktail   Cocktail   @relation(fields: [cocktailId], references: [id])
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id])
+
+  @@id([cocktailId, ingredientId])
+  @@map("ingredient_on_cocktail")
+}
+
+model Tag {
+  id       Int        @id @default(autoincrement())
+  name     String
+  Cocktail Cocktail[]
+
+  @@map("tags")
+}
+
+model Category {
+  id       Int        @id @default(autoincrement())
+  name     String
+  Cocktail Cocktail[]
+
+  @@map("categories")
+}
