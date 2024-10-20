@@ -6,18 +6,18 @@ import { LayoutTitle } from '@/components/layout'
 import { Button } from '@/components/ui/button'
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import { Ingredient } from '@prisma/client';
 import { deleteIngredient, getIngredients, upsertIngredient } from '@/actions/ingredients';
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
+import IngredientAddEditDialog from './IngredientAddEditDialog';
+import { upsertIngredientSchema } from '@/schemas';
+import { z } from 'zod';
 
 export default function IngredientsPage({ ingredients }: { ingredients: Ingredient[] }) {
     const [dialogOpened, setDialogOpened] = React.useState(false)
-    const [editedName, setEditedName] = React.useState<string>("")
-    const [currId, setCurrId] = React.useState<number | undefined>(undefined)
+    const [editedIngredient, setEditedIngredient] = React.useState<Ingredient | null>(null)
     const { data, isLoading, refetch } = useQuery({
         queryKey: ['ingredients'],
         queryFn: async () => {
@@ -32,8 +32,7 @@ export default function IngredientsPage({ ingredients }: { ingredients: Ingredie
         mutationFn: upsertIngredient,
         onSuccess: (response) => {
             refetch()
-            setEditedName("")
-            setCurrId(undefined)
+            setEditedIngredient(null)
             setDialogOpened(false)
             if (!response?.data?.success) return toast.error(response?.data?.failure || "Wystąpił błąd podczas aktualizacji tagu")
             toast.success("Tag została zaktualizowany")
@@ -54,8 +53,8 @@ export default function IngredientsPage({ ingredients }: { ingredients: Ingredie
         }
     })
 
-    const handleUpsertIngredient = () => {
-        // upsertIngredientFn({ id: currId, name: editedName })
+    const handleUpsertIngredient = (values: z.infer<typeof upsertIngredientSchema>) => {
+        upsertIngredientFn(values)
     }
 
     const handleDeleteIngredient = (id: number) => deleteIngredientFn({ id })
@@ -65,9 +64,8 @@ export default function IngredientsPage({ ingredients }: { ingredients: Ingredie
             <div className='flex items-center justify-between mb-6'>
                 <LayoutTitle className='mb-0'>Składniki</LayoutTitle>
                 <Button variant={"secondary"} onClick={() => {
+                    setEditedIngredient(null)
                     setDialogOpened(true)
-                    setEditedName("")
-                    setCurrId(undefined)
                 }}>
                     <Icons.Plus className='w-4 h-4 mr-2' />Dodaj składnik
                 </Button>
@@ -107,9 +105,8 @@ export default function IngredientsPage({ ingredients }: { ingredients: Ingredie
                                 <TableCell>{ingredient.type}</TableCell>
                                 <TableCell className="text-right space-x-2">
                                     <Button variant={"secondary"} size={"icon"} onClick={() => {
+                                        setEditedIngredient(ingredient)
                                         setDialogOpened(true)
-                                        setEditedName(ingredient.name)
-                                        setCurrId(ingredient.id)
                                     }}>
                                         <Icons.Edit className='w-4 h-4' />
                                     </Button>
@@ -123,25 +120,15 @@ export default function IngredientsPage({ ingredients }: { ingredients: Ingredie
                 </Table>
             </div>
 
-            <Dialog open={dialogOpened} onOpenChange={setDialogOpened}>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Edytuj tag</DialogTitle>
-                        <DialogDescription>Możesz edytować nazwę tego tagu</DialogDescription>
-                    </DialogHeader>
-                    
-                    <div className='grid gap-4'>
-                        <Input placeholder='Nazwa tagu' value={editedName} onChange={(e) => setEditedName(e.target.value)} />
-                    </div>
-
-                    <DialogFooter>
-                        <Button onClick={handleUpsertIngredient} disabled={isPendingUpsert}>
-                            {isPendingUpsert && <Icons.Loading />}
-                            Zapisz
-                        </Button> 
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
+            {dialogOpened && (
+                <IngredientAddEditDialog
+                    dialogOpened={dialogOpened}
+                    setDialogOpened={setDialogOpened}
+                    editedIngredient={editedIngredient}
+                    isPending={isPendingUpsert}
+                    handleUpsertIngredient={handleUpsertIngredient}
+                />
+            )}
         </div>
     );
 }

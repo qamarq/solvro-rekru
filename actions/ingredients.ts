@@ -2,16 +2,8 @@
 
 import { prisma } from "@/lib/db"
 import { actionClient } from "@/lib/safe-action"
+import { upsertIngredientSchema } from "@/schemas"
 import { z } from "zod"
-
-const upsertIngredientSchema = z.object({
-    id: z.number().optional(),
-    name: z.string(),
-    description: z.string(),
-    isAlcohol: z.boolean(),
-    image: z.string(),
-    type: z.string(),
-})
 
 export const upsertIngredient = actionClient
     .schema(upsertIngredientSchema)
@@ -65,7 +57,7 @@ export const deleteIngredient = actionClient
 
 export const getIngredients = async () => {
     try {
-        const ingredients = await prisma.ingredient.findMany()
+        const ingredients = await prisma.ingredient.findMany({ orderBy: { id: 'asc' } })
 
         return { success: true, ingredients }
     } catch (error) {
