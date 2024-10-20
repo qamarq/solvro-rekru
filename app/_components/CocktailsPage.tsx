@@ -15,7 +15,7 @@ import { toast } from "sonner";
 
 export default function CocktailsPage({ favorite }: { favorite?: boolean }) {
     const { data, isLoading } = useQuery({
-        queryKey: ['cocktails'],
+        queryKey: [`cocktails-${favorite ? "favorite" : "all"}`],
         queryFn: async () => {
             const res = await getCocktails({ favorite });
             if (!res?.data || res.data.failure) throw new Error("Failed to fetch cocktails");
