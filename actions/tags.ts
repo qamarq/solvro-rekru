@@ -65,7 +65,7 @@ export const deleteTag = actionClient
 
 export const getTags = async () => {
     try {
-        const tags = await prisma.tag.findMany()
+        const tags = await prisma.tag.findMany({ orderBy: { id: "asc" } })
 
         return { success: true, tags }
     } catch (error) {

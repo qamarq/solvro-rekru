@@ -58,7 +58,7 @@ export const deleteCategory = actionClient
 
 export const getCategories = async () => {
     try {
-        const categories = await prisma.category.findMany({ include: { Cocktail: true } })
+        const categories = await prisma.category.findMany({ include: { Cocktail: true }, orderBy: { id: "asc" } })
 
         return { success: true, categories }
     } catch (error) {

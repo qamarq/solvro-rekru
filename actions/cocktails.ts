@@ -205,6 +205,7 @@ export const getCocktails = actionClient
                     tags: true,
                     category: true,
                 },
+                orderBy: { id: "asc" }
             });
 
             return { success: true, cocktails };

@@ -24,62 +24,6 @@ export default function CocktailsPage({ favorite }: { favorite?: boolean }) {
         refetchOnMount: true,
     })
 
-    // const handleAddTestCoctail = async () => {
-    //     const promise = new Promise<{ name: string }>(async (resolve, reject) => {
-    //         const addCategoryRes = await addCategory({ name: 'Ordinary Drink' });
-    //         if (!addCategoryRes?.data || addCategoryRes.data.failure) reject(addCategoryRes?.data?.failure); 
-    //         const categoryId = addCategoryRes!.data!.category!.id;
-
-    //         await addTag({ name: 'IBA' });
-    //         await addTag({ name: 'Classic' });
-
-    //         await addIngredient({ 
-    //             name: 'Gin', 
-    //             description: 'Gin is a distilled alcoholic drink that derives its predominant flavour from juniper berries (Juniperus communis). Gin is one of the broadest categories of spirits, all of various origins, styles, and flavour profiles, that revolve around juniper as a common ingredient.\r\n\r\nFrom its earliest origins in the Middle Ages, the drink has evolved from a herbal medicine to an object of commerce in the spirits industry. Gin emerged in England after the introduction of the jenever, a Dutch liquor which originally had been a medicine. Although this development had been taking place since early 17th century, gin became widespread after the William of Orange-led 1688 Glorious Revolution and subsequent import restrictions on French brandy.\r\n\r\nGin today is produced in subtly different ways, from a wide range of herbal ingredients, giving rise to a number of distinct styles and brands. After juniper, gin tends to be flavoured with botanical/herbal, spice, floral or fruit-flavours or often a combination. It is most commonly consumed mixed with tonic water. Gin is also often used as a base spirit to produce flavoured gin-based liqueurs such as, for example, Sloe gin, traditionally by the addition of fruit, flavourings and sugar.', 
-    //             isAlcohol: true, 
-    //             image: 'https://cocktails.solvro.pl/images/ingredients/gin.png', 
-    //             type: 'Test' 
-    //         });
-    //         await addIngredient({ 
-    //             name: 'Sweet Vermouth', 
-    //             description: 'Vermouth (/vərˈmuːθ/ ver-MOOTH; also UK: /ˈvɜːrməθ/;) is an aromatized, fortified wine flavored with various botanicals (roots, barks, flowers, seeds, herbs, and spices).\r\n\r\nThe modern versions of the beverage were first produced in the mid to late 18th century in Turin, Italy. While vermouth was traditionally used for medicinal purposes, its true claim to fame is as an aperitif, with fashionable cafes in Turin serving it to guests around the clock. However, in the late 19th century it became popular with bartenders as a key ingredient in many classic cocktails that have survived to date, such as the Martini, the Manhattan, the Rob Roy, and the Negroni. In addition to being consumed as an aperitif or cocktail ingredient, vermouth is sometimes used as an alternative white wine in cooking.\r\n\r\nHistorically, there have been two main types of vermouth: sweet and dry. Responding to demand and competition, vermouth manufacturers have created additional styles, including extra-dry white, sweet white (bianco), red, amber (ambre or rosso), and rosé. Vermouth is produced by starting with a base of a neutral grape wine or unfermented wine must. Each manufacturer adds additional alcohol and a proprietary mixture of dry ingredients, consisting of aromatic herbs, roots, and barks, to the base wine, base wine plus spirit or spirit only – which may be redistilled before adding to the wine or unfermented wine must. After the wine is aromatized and fortified, the vermouth is sweetened with either cane sugar or caramelized sugar, depending on the style. Italian and French companies produce most of the vermouth consumed throughout the world, although the United States and the United Kingdom are also producers.', 
-    //             isAlcohol: true, 
-    //             image: 'https://cocktails.solvro.pl/images/ingredients/sweet-vermouth.png', 
-    //             type: 'Gin' 
-    //         });
-    //         await addIngredient({ 
-    //             name: 'Campari', 
-    //             description: '', 
-    //             isAlcohol: true, 
-    //             image: 'https://cocktails.solvro.pl/images/ingredients/campari.png', 
-    //             type: 'Liquer' 
-    //         });
-
-    //         const addCoctailRes = await addCocktail({
-    //             name: 'Negroni',
-    //             instruction: 'Stir into glass over ice, garnish and serve.',
-    //             ingredients: [
-    //                 { ingredientId: 1, quantity: 1, measure: '1 oz' },
-    //                 { ingredientId: 2, quantity: 1, measure: '1 oz' },
-    //                 { ingredientId: 3, quantity: 1, measure: '1 oz' }
-    //             ],
-    //             tags: [ 1,2 ],
-    //             image: 'https://placehold.co/400',
-    //             categoryId,
-    //         })
-
-    //         if (!addCoctailRes?.data || addCoctailRes.data.failure) reject(addCoctailRes?.data?.failure);
-    //         refetch()
-    //         resolve({ name: addCoctailRes!.data!.cocktail!.name });
-    //     });
-    //     toast.promise(promise, {
-    //         loading: 'Dodawanie...',
-    //         success: (data: { name: string }) => {
-    //           return `Dodano nowy koktajl o nazwie ${data.name}`;
-    //         },
-    //         error: 'Error',
-    //     });
-    // }
     return (
         <LayoutContainer className="">
             <LayoutTitle>{favorite ? "Twoje ulubione" : "Wszystkie koktajle"}</LayoutTitle>
