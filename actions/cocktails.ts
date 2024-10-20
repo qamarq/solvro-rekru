@@ -4,6 +4,8 @@ import { prisma } from '@/lib/db';
 import { actionClient } from '@/lib/safe-action';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
+import { embed } from 'ai';
+import { openai } from "@ai-sdk/openai";
 
 const addCocktailSchema = z.object({
     name: z.string(),
@@ -25,9 +27,15 @@ export const addCocktail = actionClient
     .action(async ({ parsedInput }) => {
         //! Dodajemy auth jeśli posiadamy system konta ponieważ akcja jest stricte dla administratora a server action w nextjs jest pod random id ale publiczne
         try {
+            const { embedding } = await embed({
+                model: openai.embedding("text-embedding-3-large"),
+                value: parsedInput.name,
+            });
+
             const cocktail = await prisma.cocktail.create({
                 data: {
                     name: parsedInput.name,
+                    embedded_name: embedding,
                     instruction: parsedInput.instruction,
                     ingredients: {
                         create: parsedInput.ingredients.map((ingredient) => ({
@@ -90,9 +98,15 @@ export const updateCocktail = actionClient
     .schema(updateCocktailSchema)
     .action(async ({ parsedInput }) => {
         try {
+            const { embedding } = await embed({
+                model: openai.embedding("text-embedding-3-large"),
+                value: parsedInput.name,
+            });
+
             // Filtrowanie, aby usunąć pola z wartością undefined
             const updateData = {
                 ...(parsedInput.name && { name: parsedInput.name }),
+                ...(parsedInput.name && { embedded_name: embedding }),
                 ...(parsedInput.instruction && {
                     instruction: parsedInput.instruction,
                 }),
@@ -166,6 +180,11 @@ export const deleteCocktail = actionClient
     .action(async ({ parsedInput }) => {
         //! Dodajemy auth jeśli posiadamy system konta ponieważ akcja jest stricte dla administratora a server action w nextjs jest pod random id ale publiczne
         try {
+            await prisma.ingredientOnCocktail.deleteMany({
+                where: { cocktailId: parsedInput.id }, // Zakładając, że parsedInput zawiera id koktajlu
+            });
+
+            // Następnie usuń koktajl
             const cocktail = await prisma.cocktail.delete({
                 where: parsedInput,
             });

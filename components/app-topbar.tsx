@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useTransition } from 'react'
 import { Icons } from './icons'
 import { Button } from './ui/button'
 import Link from 'next/link'
@@ -9,13 +9,16 @@ import { useRouter, useSelectedLayoutSegment } from 'next/navigation'
 export default function AppTopbar() {
     const segment = useSelectedLayoutSegment()
     const [search, setSearch] = React.useState("")
+    const [isSearching, startTransition] = useTransition();
     const router = useRouter()
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         if (search.length > 0) {
-            router.push(`/search?q=${encodeURIComponent(search)}`)
+            startTransition(() => {
+                router.push(`/search?query=${search}`);
+            });
         }
     }
 
@@ -36,7 +39,7 @@ export default function AppTopbar() {
                 </div>
                 <div className='flex items-center justify-end gap-2'>
                     <form className='bg-foreground/5 p-2.5 px-3 rounded-md w-full max-w-[300px] flex items-center' onSubmit={handleSubmit}>
-                        <button><Icons.Search className='w-4 h-4 mr-2 cursor-pointer' /></button>
+                        <button>{isSearching ? <Icons.Loading /> : <Icons.Search className='w-4 h-4 mr-2' />}</button>
                         <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" className='bg-transparent w-full focus:outline-none text-sm' placeholder='Wyszukaj koktajl' />
                     </form>
                     <Link href="/dashboard">

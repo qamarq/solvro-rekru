@@ -13,9 +13,10 @@ import { Icons } from '@/components/icons'
 import { Ingredient, IngredientOnCocktail, Tag } from '@prisma/client'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { addCocktail, updateCocktail } from '@/actions/cocktails'
+import { addCocktail, deleteCocktail, updateCocktail } from '@/actions/cocktails'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
+import { useMutation } from '@tanstack/react-query'
 
 export default function CocktailAddEditPage(
     { 
@@ -85,6 +86,17 @@ export default function CocktailAddEditPage(
             }
         })
     }
+
+    const { mutate: deleteCocktailFn, isPending: isPendingDelete } = useMutation({
+        mutationFn: deleteCocktail,
+        onSuccess: () => {
+            toast.success('Koktajl został usunięty pomyślnie!')
+            router.push('/dashboard')
+        },
+        onError: () => {
+            toast.error('Wystąpił błąd podczas usuwania koktajlu')
+        }
+    })
 
     const preparedTags = useMemo(() => {
         return allTags?.map(tag => ({ label: tag.name, value: tag.id.toString() })) || []
@@ -169,10 +181,11 @@ export default function CocktailAddEditPage(
                         />
                     </div>
 
-                    <div className='mt-6'>
+                    <div className='mt-6 grid gap-2'>
                         <Button className='w-full' disabled={isPending} onClick={handleSaveCocktail}>
-                            {isPending ? <Icons.Loading className='animate-spin w-4 h-4 mr-2' /> : <Icons.Save className='w-4 h-4 mr-2' />}Zapisz koktajl
+                            {isPending ? <Icons.Loading /> : <Icons.Save className='w-4 h-4 mr-2' />}Zapisz koktajl
                         </Button>
+                        {cocktail && <Button onClick={() => deleteCocktailFn({ id: cocktail.id })} className='w-full' variant={"destructive"}>{isPendingDelete ? <Icons.Loading /> : <Icons.Trash className='w-4 h-4 mr-2' />}Usuń koktajl</Button>}
                     </div>
                 </div>
             </div>
