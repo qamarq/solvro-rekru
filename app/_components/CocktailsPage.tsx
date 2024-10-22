@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function CocktailsPage({ favorite }: { favorite?: boolean }) {
     const { data, isLoading } = useQuery({
@@ -28,7 +29,13 @@ export default function CocktailsPage({ favorite }: { favorite?: boolean }) {
         <LayoutContainer className="">
             <LayoutTitle>{favorite ? "Twoje ulubione" : "Wszystkie koktajle"}</LayoutTitle>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                {isLoading ? <div>Loading...</div> : null}
+                {isLoading ? (
+                    <>
+                        <SkeletonCard />
+                        <SkeletonCard />
+                        <SkeletonCard />
+                    </>
+                ) : null}
                 {data?.map(cocktail => (
                     <CocktailCard key={cocktail.id} cocktail={cocktail} />
                 ))}
@@ -37,6 +44,22 @@ export default function CocktailsPage({ favorite }: { favorite?: boolean }) {
         </LayoutContainer>
     );
 }
+
+const SkeletonCard = () => (
+    <Card className="overflow-hidden bg-card/50 relative">
+        <Button variant={"outline"} size={"icon"} className="absolute top-2 left-2 w-[40px] h-[40px]">
+            <Icons.HeartEmpty className="text-rose-500 w-5 h-5" />
+        </Button>
+        <Skeleton className="aspect-square" />
+        <CardContent className="p-5">
+            <div className="flex items-center justify-between flex-col md:flex-row">
+                <Skeleton className="w-20 h-6" />
+                <Badge><Skeleton className="h-4 w-10" /></Badge>
+            </div>
+            <Skeleton className="h-4 w-full mt-4" />
+        </CardContent>
+    </Card>
+)
 
 const CocktailCard = ({ cocktail }: { cocktail: getCocktailType }) => {
     const [isFavorite, setIsFavorite] = useState(cocktail.favorite)
