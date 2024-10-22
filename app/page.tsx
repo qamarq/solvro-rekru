@@ -40,6 +40,12 @@ export default function HomePage() {
                             <Icons.ArrowRight className='w-4 h-4 ml-2' />
                         </RainbowButton>
                     </Link>
+                    <Link href="https://github.com/qamarq/solvro-rekru">
+                        <RainbowButton className='text-white font-cal !bg-[linear-gradient(#121213,#121213),linear-gradient(#121213_50%,rgba(18,18,19,0.6)_80%,rgba(18,18,19,0)),linear-gradient(90deg,hsl(var(--color-1)),hsl(var(--color-5)),hsl(var(--color-3)),hsl(var(--color-4)),hsl(var(--color-2)))]'>
+                            <span className='translate-y-[1px]'>Github</span>
+                            <Icons.Github className='w-4 h-4 ml-2' />
+                        </RainbowButton>
+                    </Link>
                 </div>
                 <div className="relative mt-[8rem] animate-fade-up opacity-0 [--animation-delay:400ms] [perspective:2000px] after:absolute after:inset-0 after:z-20 after:[background:linear-gradient(to_top,hsl(var(--background))_30%,transparent)]">
                     <div className="rounded-xl border border-white/10 bg-white bg-opacity-[0.01] before:absolute before:bottom-1/2 before:left-0 before:top-0 before:h-full before:w-full before:opacity-0 before:[filter:blur(180px)] before:[background-image:linear-gradient(to_bottom,hsl(var(--primary)),hsl(var(--primary)),transparent_40%)] before:animate-image-glow">
