@@ -20,8 +20,8 @@ export default async function CocktailDetailsPage(props: { params: Promise<{ coc
             <Link href="/cocktails">
                 <Button><Icons.ArrowLeft className='w-4 h-4 mr-2' />Powrót do koktajlów</Button>
             </Link>
-            <div className='grid grid-cols-3 items-start mt-12 gap-10'>
-                <div className='flex items-center gap-10 col-span-2'>
+            <div className='grid grid-cols-1 md:grid-cols-3 items-start mt-12 gap-0 md:gap-10'>
+                <div className='flex items-center gap-10 col-span-2 flex-col md:flex-row'>
                     <Image 
                         src={cocktail.image} 
                         alt={cocktail.name} 
@@ -47,7 +47,7 @@ export default async function CocktailDetailsPage(props: { params: Promise<{ coc
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-col gap-2'>
+                <div className='flex flex-col gap-2 mt-10 md:mt-0'>
                     <Accordion type="single" collapsible className="w-full space-y-2">
                         {cocktail.ingredients.map((item) => (
                             <AccordionItem 

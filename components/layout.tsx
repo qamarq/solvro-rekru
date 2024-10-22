@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function LayoutContainer({ children, className }: Readonly<{ children: React.ReactNode, className?: string }>) {
     return (
-        <div className={cn("pt-28 container mx-auto", className)}>{children}</div>
+        <div className={cn("pt-28 container mx-auto px-4 md:px-0 pb-10 md:pb-0", className)}>{children}</div>
     )
 }
 

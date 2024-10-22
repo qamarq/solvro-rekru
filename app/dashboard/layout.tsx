@@ -4,7 +4,7 @@ import DashboardSidebar from './_components/DashboardSidebar'
 
 export default function LayoutDashboard({ children }: { children: React.ReactNode }) {
     return (
-        <LayoutContainer className='flex gap-8'>
+        <LayoutContainer className='flex gap-8 flex-col md:flex-row'>
             <DashboardSidebar />
             {children}
         </LayoutContainer>

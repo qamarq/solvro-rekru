@@ -27,15 +27,13 @@ export default function CocktailsPage({ favorite }: { favorite?: boolean }) {
     return (
         <LayoutContainer className="">
             <LayoutTitle>{favorite ? "Twoje ulubione" : "Wszystkie koktajle"}</LayoutTitle>
-            <div className="grid grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                 {isLoading ? <div>Loading...</div> : null}
                 {data?.map(cocktail => (
                     <CocktailCard key={cocktail.id} cocktail={cocktail} />
                 ))}
                 {data?.length === 0 && !isLoading ? <div>Brak koktajli</div> : null}
             </div>
-            
-            {/* <Button onClick={handleAddTestCoctail}>Dodaj testowy koktajl</Button> */}
         </LayoutContainer>
     );
 }
@@ -71,7 +69,7 @@ const CocktailCard = ({ cocktail }: { cocktail: getCocktailType }) => {
                 </Button>
                 <Image unoptimized src={cocktail.image} alt="" height={400} width={400} className="aspect-square object-contain bg-foreground/5 p-4" />
                 <CardContent className="p-5">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between flex-col md:flex-row">
                         <h1 className="text-xl font-cal translate-y-[1px]">{cocktail.name}</h1>
                         <Badge>Składniki: {cocktail.ingredients.length}</Badge>
                     </div>

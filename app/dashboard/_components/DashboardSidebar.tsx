@@ -8,6 +8,7 @@ import React from 'react'
 
 export default function DashboardSidebar() {
     const segment = useSelectedLayoutSegment()
+    const [hiddenMenu, setHiddenMenu] = React.useState(false)
 
     const MENU = [
         { label: 'Koktajle', icon: Icons.Drink, segment: null, href: '/dashboard' },
@@ -27,10 +28,10 @@ export default function DashboardSidebar() {
                     </div>
                 </div>
 
-                <Button variant={"ghost"} size={"icon"}><Icons.ChevronsUpDown className="w-4 h-4" /></Button>
+                <Button variant={"ghost"} size={"icon"} onClick={() => setHiddenMenu(prev => !prev)}><Icons.ChevronsUpDown className="w-4 h-4" /></Button>
             </div>
 
-            <div className='mt-5 flex flex-col gap-2'>
+            {!hiddenMenu && <div className='mt-5 flex flex-col gap-2'>
                 <p className='text-xs text-muted-foreground font-semibold mb-3'>Wybierz z menu</p>
                 {MENU.map((item, index) => (
                     <Link key={`button-menu-${index}`} href={item.href} className='w-full'>
@@ -41,7 +42,7 @@ export default function DashboardSidebar() {
                         </Button>
                     </Link>
                 ))}
-            </div>
+            </div>}
         </div>
     )
 }

@@ -114,7 +114,7 @@ export default function CocktailAddEditPage(
     }
     
     return (
-        <div className='w-full grid grid-cols-2 gap-10'>
+        <div className='w-full grid grid-cols-1 md:grid-cols-2 gap-10'>
             <div className='flex flex-col'>
                 <div className='flex flex-col gap-2'>
                     <div className='flex gap-2'>
@@ -246,7 +246,7 @@ export default function CocktailAddEditPage(
                         <SheetDescription>Wybierz składnik który chcesz dodać do koktajlu</SheetDescription>
                     </SheetHeader>
 
-                    <div className="grid gap-6 py-4 mt-5">
+                    <div className="grid gap-6 py-4 mt-5 overflow-y-scroll h-5/6">
                         {allIngredients?.map(ingredient => (
                             <div key={ingredient.id} className="flex items-center justify-between">
                                 <div className='flex items-center gap-2'>
