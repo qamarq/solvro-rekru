@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Solvro Rekru
 
-## Getting Started
+To repozytorium zawiera aplikację webową, która wykorzystuje zaawansowane funkcje, takie jak wyszukiwanie wektorowe. Aplikacja została zbudowana przy użyciu **Next.js** i **TypeScript**, zapewniając nowoczesną i wydajną infrastrukturę.
 
-First, run the development server:
+## Kluczowe funkcje
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Wyszukiwanie wektorowe**: Umożliwia bardziej precyzyjne i relewantne wyniki wyszukiwania dzięki użyciu embeddingów.
+- **Szybkość i skalowalność**: Dzięki **Next.js** i renderowaniu po stronie serwera, aplikacja jest zoptymalizowana pod kątem wydajności.
+- **Dostosowany interfejs**: Responsywny design oparty na **Tailwind CSS**.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Instalacja
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Sklonuj repozytorium:
+    ```bash
+    git clone https://github.com/qamarq/solvro-rekru.git
+    ```
+2. Zainstaluj zależności:
+    ```bash
+    pnpm install
+    ```
+3. Uruchom serwer:
+    ```bash
+    pnpm dev
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+  Otwórz localhost:3000 w przeglądarce, aby zobaczyć aplikację.
 
-## Learn More
+  ## Stack technologiczny
 
-To learn more about Next.js, take a look at the following resources:
+  Aplikacja wykorzystuje następujące technologie:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Next.js**: Framework do renderowania po stronie serwera (SSR) i generowania statycznych stron (SSG).
+- **React**: Biblioteka do budowy interfejsu użytkownika.
+- **TypeScript**: Statyczne typowanie dla JavaScriptu, zapewniające większe bezpieczeństwo i lepszą organizację kodu.
+- **Prisma**: ORM do zarządzania bazą danych, wspierający PostgreSQL.
+- **PostgreSQL**: Relacyjna baza danych wykorzystywana do przechowywania danych aplikacji.
+- **Rozszerzenie pgvector do PostgreSQL**: Rozszerzenie (na neon.tech) do wyszukiwania wektorowego
+- **OpenAI Embedding models**: Modele do tworzenia embeddingów tesktu do wyszukiwania
+- **Tailwind CSS**: Narzędzie do szybkiego tworzenia stylów, umożliwiające budowanie responsywnego interfejsu użytkownika.
+- **Pnpm**: Menedżer pakietów dla Node.js, optymalizujący instalację zależności.
+- **Vercel**: Platforma hostingowa dla aplikacji Next.js, umożliwiająca łatwe wdrożenia.
