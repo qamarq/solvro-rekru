@@ -8,6 +8,7 @@ import { Toaster } from '@/components/ui/sonner';
 import ReactQueryProvider from '@/components/react-query-provider';
 import Blobs from '@/components/blobs';
 import Link from 'next/link';
+import { Analytics } from "@vercel/analytics/react"
 
 const geistSans = localFont({
     src: './fonts/GeistVF.woff',
@@ -102,6 +103,7 @@ export default async function RootLayout({
                                 <h3 className='text-muted-foreground text-xs'>© 2024 Kamil Marczak. All rights reserved.</h3>
                             </div>
                         </footer>
+                        <Analytics />
                     </ReactQueryProvider>
                 </ThemeProvider>
             </body>
