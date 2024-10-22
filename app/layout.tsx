@@ -48,11 +48,37 @@ export const metadata: Metadata = {
     },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    let stars = 300;
+
+    try {
+        const response = await fetch(
+            'https://api.github.com/repos/qamarq/solvro-rekru',
+            {
+                headers: process.env.GITHUB_OAUTH_TOKEN
+                    ? {
+                          Authorization: `Bearer ${process.env.GITHUB_OAUTH_TOKEN}`,
+                          'Content-Type': 'application/json',
+                      }
+                    : {},
+                next: {
+                    revalidate: 3600,
+                },
+            }
+        );
+
+        if (response.ok) {
+            const data = await response.json();
+            stars = data.stargazers_count || stars; // Update stars if API response is valid
+        }
+    } catch (error) {
+        console.error('Error fetching GitHub stars:', error);
+    }
+
     return (
         <html lang="pl" suppressHydrationWarning>
             <body
@@ -64,7 +90,7 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     <ReactQueryProvider>
-                        <AppTopbar />
+                        <AppTopbar stars={stars} />
                         <main className='z-10 relative min-h-screen'>
                             {children}
                             <Toaster richColors />

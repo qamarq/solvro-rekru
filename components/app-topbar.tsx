@@ -8,6 +8,7 @@ import { useRouter, useSelectedLayoutSegment } from 'next/navigation'
 import { Drawer, DrawerContent } from './ui/drawer'
 import { DialogFooter, DialogHeader } from './ui/dialog'
 import { DialogTitle } from '@radix-ui/react-dialog'
+import GithubStarBtn from './github-star'
 
 const SubMenu = [
     {
@@ -24,7 +25,7 @@ const SubMenu = [
     }
 ]
 
-export default function AppTopbar() {
+export default function AppTopbar({ stars }: { stars: number }) {
     const segment = useSelectedLayoutSegment()
     const [search, setSearch] = React.useState("")
     const [isSearching, startTransition] = useTransition();
@@ -63,8 +64,9 @@ export default function AppTopbar() {
                         <button>{isSearching ? <Icons.Loading /> : <Icons.Search className='w-4 h-4 mr-2' />}</button>
                         <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" className='bg-transparent w-full focus:outline-none text-sm' placeholder='Wyszukaj koktajl' />
                     </form>
+                    <GithubStarBtn stars={stars} />
                     <Link href="/dashboard">
-                        <Button><Icons.Settings className="w-4 h-4 mr-2" />Zarządzaj koktajlami</Button>
+                        <Button size={"sm"}><Icons.Settings className="w-4 h-4 mr-2" />Zarządzaj</Button>
                     </Link>
                 </div>
                 <div className='flex md:hidden items-center justify-end'><Button onClick={() => setOpened(prev => !prev)} size={"icon"} variant={"secondary"}><Icons.Menu className='w-4 h-4' /></Button></div>

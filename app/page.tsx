@@ -37,7 +37,7 @@ export default function HomePage() {
                     <Link href="/cocktails">
                         <RainbowButton className='text-primary font-cal'>
                             <span className='translate-y-[1px]'>Zobacz koktajle</span>
-                            <Icons.ArrowRight className='w-4 h-4 ml-2' />
+                            <Icons.Right className='w-4 h-4 ml-2' />
                         </RainbowButton>
                     </Link>
                     <Link href="https://github.com/qamarq/solvro-rekru">
