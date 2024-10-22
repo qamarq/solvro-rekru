@@ -6,9 +6,12 @@ import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
 import { roundToNdecimals } from '@/lib/utils'
 
-export default async function SearchPage({ searchParams }: { searchParams: {
-    [key: string]: string | string[] | undefined
-}}) {
+export default async function SearchPage(
+    props: { searchParams: Promise<{
+        [key: string]: string | string[] | undefined
+    }>}
+) {
+    const searchParams = await props.searchParams;
     const query = searchParams.query
     if (Array.isArray(query) || !query) {
         return

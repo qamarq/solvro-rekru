@@ -6,7 +6,8 @@ import { getIngredients } from '@/actions/ingredients'
 import { getTags } from '@/actions/tags'
 import { getCategories } from '@/actions/category'
 
-export default async function CocktailEditPage({ params }: { params: { cocktailId?: string } }) {
+export default async function CocktailEditPage(props: { params: Promise<{ cocktailId?: string }> }) {
+    const params = await props.params;
     const cocktail = await getCocktail({ id: params.cocktailId ? +params.cocktailId : 0 })
     const { ingredients } = await getIngredients()
     const { tags } = await getTags()

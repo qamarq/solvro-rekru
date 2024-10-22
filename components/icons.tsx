@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { ArrowLeft, ChartPieIcon, Loader2, SettingsIcon, ShieldCheckIcon, UserIcon, ArrowRight, Plus, Search, ChevronsUpDown, Martini, ChevronRight, Grid2x2Check, FlaskRound, Tags, Save, Trash, Pen } from "lucide-react";
+import { ArrowLeft, ChartPieIcon, Loader2, SettingsIcon, ShieldCheckIcon, UserIcon, ArrowRight, Plus, Search, ChevronsUpDown, Martini, ChevronRight, Grid2x2Check, FlaskRound, Tags, Save, Trash, Pen, Check, X } from "lucide-react";
 import Image from "next/image";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 
@@ -38,5 +38,7 @@ export const Icons = {
     Tags,
     Save,
     Trash,
-    Edit: Pen
+    Edit: Pen,
+    Check,
+    X
 }
