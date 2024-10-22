@@ -33,7 +33,7 @@ export default function HomePage() {
                     <br className="hidden md:block" /> 
                     Za bardzo nie wiem, co tu napisać, więc piszę co mi przychodzi do głowy.
                 </p>
-                <div className='flex justify-center items-center gap-3 animate-fade-in opacity-0 [--animation-delay:400ms]'>
+                <div className='flex flex-col md:flex-row justify-center items-center gap-3 animate-fade-in opacity-0 [--animation-delay:400ms]'>
                     <Link href="/cocktails">
                         <RainbowButton className='text-primary font-cal'>
                             <span className='translate-y-[1px]'>Zobacz koktajle</span>

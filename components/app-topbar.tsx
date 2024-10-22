@@ -60,7 +60,7 @@ export default function AppTopbar({ stars }: { stars: number }) {
                     </div>
                 </div>
                 <div className='hidden md:flex items-center justify-end gap-2'>
-                    <form className='bg-foreground/5 p-2.5 px-3 rounded-md w-full max-w-[300px] flex items-center' onSubmit={handleSubmit}>
+                    <form className='bg-foreground/5 p-2.5 px-3 rounded-md w-full max-w-[300px] hidden lg:flex items-center' onSubmit={handleSubmit}>
                         <button>{isSearching ? <Icons.Loading /> : <Icons.Search className='w-4 h-4 mr-2' />}</button>
                         <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" className='bg-transparent w-full focus:outline-none text-sm' placeholder='Wyszukaj koktajl' />
                     </form>
