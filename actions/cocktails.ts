@@ -159,6 +159,8 @@ export const updateCocktail = actionClient
             });
 
             revalidatePath('/cocktails');
+            revalidatePath('/cocktails/' + parsedInput.id);
+            revalidatePath('/favorites')
             revalidatePath('/dashboard');
 
             return { success: true, cocktail };
@@ -204,12 +206,17 @@ export const deleteCocktail = actionClient
 
 const getCocktailsSchema = z.object({
     favorite: z.boolean().optional(),
+    onlyCount: z.boolean().optional(),
 });
 
 export const getCocktails = actionClient
     .schema(getCocktailsSchema)
     .action(async ({ parsedInput }) => {
         try {
+            if (parsedInput.onlyCount) {
+                const count = await prisma.cocktail.count({ where: { favorite: parsedInput.favorite } });
+                return { success: true, count };
+            }
             const cocktails = await prisma.cocktail.findMany({
                 where:
                     parsedInput.favorite !== undefined

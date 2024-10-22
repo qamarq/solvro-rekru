@@ -14,7 +14,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function CocktailsPage({ favorite }: { favorite?: boolean }) {
+export default function CocktailsPage({ favorite, count }: { favorite?: boolean, count: number }) {
     const { data, isLoading } = useQuery({
         queryKey: [`cocktails-${favorite ? "favorite" : "all"}`],
         queryFn: async () => {
@@ -30,11 +30,7 @@ export default function CocktailsPage({ favorite }: { favorite?: boolean }) {
             <LayoutTitle>{favorite ? "Twoje ulubione" : "Wszystkie koktajle"}</LayoutTitle>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                 {isLoading ? (
-                    <>
-                        <SkeletonCard />
-                        <SkeletonCard />
-                        <SkeletonCard />
-                    </>
+                    Array.from({ length: count }).map((_, i) => <SkeletonCard key={i} />)
                 ) : null}
                 {data?.map(cocktail => (
                     <CocktailCard key={cocktail.id} cocktail={cocktail} />
