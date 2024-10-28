@@ -98,10 +98,10 @@ export const updateCocktail = actionClient
     .schema(updateCocktailSchema)
     .action(async ({ parsedInput }) => {
         try {
-            const { embedding } = await embed({
+            const { embedding } = parsedInput.name ? (await embed({
                 model: openai.embedding("text-embedding-3-large"),
                 value: parsedInput.name,
-            });
+            })) : { embedding: undefined };
 
             // Filtrowanie, aby usunąć pola z wartością undefined
             const updateData = {
